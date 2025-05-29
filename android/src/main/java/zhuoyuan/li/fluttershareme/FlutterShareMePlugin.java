@@ -34,7 +34,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
+// import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /**
  * FlutterShareMePlugin
@@ -60,11 +60,11 @@ public class FlutterShareMePlugin implements MethodCallHandler, FlutterPlugin, A
     /**
      * Plugin registration.
      */
-    public static void registerWith(Registrar registrar) {
-        final FlutterShareMePlugin instance = new FlutterShareMePlugin();
-        instance.onAttachedToEngine(registrar.messenger());
-        instance.activity = registrar.activity();
-    }
+    // public static void registerWith(Registrar registrar) {
+    //     final FlutterShareMePlugin instance = new FlutterShareMePlugin();
+    //     instance.onAttachedToEngine(registrar.messenger());
+    //     instance.activity = registrar.activity();
+    // }
 
     @Override
     public void onAttachedToEngine(FlutterPluginBinding binding) {
