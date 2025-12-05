@@ -195,8 +195,7 @@ public class SwiftFlutterShareMePlugin: NSObject, FlutterPlugin, SharingDelegate
         shareContent.contentURL = URL.init(string: message["url"] as! String)!
         shareContent.quote = message["msg"] as? String
         
-        let shareDialog = ShareDialog(viewController: viewController!, content: shareContent)
-        shareDialog.delegate = self
+        let shareDialog = ShareDialog(viewController: viewController!, content: shareContent, delegate: self)
         shareDialog.mode = .automatic
         shareDialog.show()
         result("Sucess")
