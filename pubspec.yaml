@@ -5,8 +5,8 @@ homepage: https://github.com/OpenFlutter/flutter_share_me
 publish_to: http://pub.dev
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
-  flutter: ">=1.12.0"
+  sdk: '>=3.8.0 <4.0.0'
+  flutter: ">=3.38.0"
 
 dependencies:
   flutter:
