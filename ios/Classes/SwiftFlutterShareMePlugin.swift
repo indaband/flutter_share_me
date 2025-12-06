@@ -190,16 +190,33 @@ public class SwiftFlutterShareMePlugin: NSObject, FlutterPlugin, SharingDelegate
     
     func sharefacebook(message:Dictionary<String,Any>, result: @escaping FlutterResult)  {
         let viewController = UIApplication.shared.delegate?.window??.rootViewController
-        //let shareDialog = ShareDialog()
         let shareContent = ShareLinkContent()
         shareContent.contentURL = URL.init(string: message["url"] as! String)!
         shareContent.quote = message["msg"] as? String
-        
-        let shareDialog = ShareDialog.dialog(viewController: viewController!, content: shareContent, delegate: self)
+
+        // Use Objective-C runtime to create ShareDialog due to Swift compiler feature flags
+        let dialogClass: AnyClass? = NSClassFromString("FBSDKShareDialog")
+        guard let dialogClass = dialogClass else {
+            result(FlutterError(code: "Error", message: "ShareDialog class not found", details: nil))
+            return
+        }
+
+        let selector = NSSelectorFromString("alloc")
+        let initSelector = NSSelectorFromString("init")
+
+        guard let allocated = (dialogClass as AnyObject).perform(selector)?.takeUnretainedValue(),
+              let shareDialog = allocated.perform(initSelector)?.takeUnretainedValue() as? ShareDialog else {
+            result(FlutterError(code: "Error", message: "Could not create ShareDialog", details: nil))
+            return
+        }
+
+        shareDialog.fromViewController = viewController
+        shareDialog.shareContent = shareContent
+        shareDialog.delegate = self
         shareDialog.mode = .automatic
         shareDialog.show()
         result("Sucess")
-        
+
     }
     
     //share via telegram
